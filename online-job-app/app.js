@@ -28,14 +28,15 @@ app.post('/submit-applicant', indexController.submitApplicant);
 // delete the user from the list
 app.post('/delete-applicant/:id', indexController.rmApplicant)
 
-//View the applicant
-
+//View individual applicants
 app.get('/applicant/:id', indexController.viewThisApplicant)
 
 //============================== server/db ==============================//
-        
+
+// DB 
 mongoose.connect('mongodb://localhost/company');
 
+// Server
 var server = app.listen(9001, function() {
 	console.log('Express server listening on port ' + server.address().port);
 });

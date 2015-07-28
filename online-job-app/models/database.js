@@ -1,3 +1,6 @@
+
+//============================== requirements ==============================//
+        
 var mongoose = require('mongoose');
 
 
@@ -12,6 +15,7 @@ var mongoose = require('mongoose');
 
 //============================== schema ==============================//
 
+// create the mongoose model
 var Applicant = mongoose.model('Applicant', {
 
     name : {type : String}, 
