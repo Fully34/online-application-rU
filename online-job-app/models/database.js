@@ -12,7 +12,14 @@ var mongoose = require('mongoose');
 
 //============================== schema ==============================//
 
-var Applicant = mongoose.model('Applicant', {name : {type : String}, bio : {type : String}, skills : String, years : {type : String}, why : {type : String}});
+var Applicant = mongoose.model('Applicant', {
+
+    name : {type : String}, 
+    bio : {type : String}, 
+    skills : {type : String},
+    years : {type : String}, 
+    why : {type : String}
+});
         
 
 

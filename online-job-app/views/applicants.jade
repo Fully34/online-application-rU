@@ -1,9 +1,19 @@
 extends layout
 
 block content
-	.container
-		h1 Applicants
+    .container
+        h1 Applicants
 
-        for applicants in applicants
-		ul#applications.list-unstyled
-			li Applicants should go here.
+        ul#applications.list-unstyled
+
+        for applicant in applicants
+
+            form(method='POST' action='/delete-applicant/#{applicant._id}')
+                input(type='submit' value='delete')
+            li Name: #{applicant.name}
+            li Bio: #{applicant.bio}
+            li Skills: #{applicant.skills}
+            li Years of experience: #{applicant.years}
+            li Personal Statement: #{applicant.why}
+
+            hr
