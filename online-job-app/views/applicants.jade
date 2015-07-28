@@ -10,10 +10,12 @@ block content
 
             form(method='POST' action='/delete-applicant/#{applicant._id}')
                 input(type='submit' value='delete')
-            li Name: #{applicant.name}
+            li 
+                a(href='/applicant/#{applicant._id}') Name: #{applicant.name}
             li Bio: #{applicant.bio}
             li Skills: #{applicant.skills}
             li Years of experience: #{applicant.years}
             li Personal Statement: #{applicant.why}
-
             hr
+
+        a(href='/') HOME

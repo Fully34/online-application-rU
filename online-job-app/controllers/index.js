@@ -1,7 +1,7 @@
 
 //============================== requirements ==============================//
         
-var Applicant = require('../models.database');
+var Applicant = require('../models/database');
 
 
 //============================== controller ==============================//
@@ -23,42 +23,68 @@ var indexController = {
 
             } else {
 
-                res.render('applicants', {applicants : doc})
+                res.render('applicants', {applicants : doc});
             }
         });
     },
 
-    submitApplicants : function(req, res){
+    submitApplicant : function(req, res){
 
-    var name = req.body.name;
-    var bio = req.body.bio;
-    var skills = req.body.skills;
-    var years = req.body.years;
-    var why = req.body.why;
+        // 
+        var name = req.body.name;
+        var bio = req.body.bio;
+        var skills = req.body.skills;
+        var years = req.body.years;
+        var why = req.body.why;
 
-    var applier = {
-        name : name,
-        bio : bio, 
-        skills : skills,
-        years : years,
-        why : why
+        // create an object that matches our schema for the db
+        var applier = {
+            name : name,
+            bio : bio, 
+            skills : skills,
+            years : years,
+            why : why
+        };
+
+        var thisApplicant = new Applicant(applier);
+
+        thisApplicant.save(function(err, doc) {
+
+            if(err) {
+
+                console.log('Son Of A!');
+            }
+        });
+
+        res.redirect('/applicants');
+    },
+
+    rmApplicant : function(req, res){
+
+        var id = req.params.id;
+
+        Applicant.remove({_id : id}, function(err) {
+
+            res.redirect('/applicants');
+        });
+    },
+
+    viewThisApplicant : function(req, res) {
+
+        var id = req.params.id;
+
+        Applicant.find({_id : id}, function(err, doc) {
+
+            if (err) {
+
+                res.send("ERROR " + err.name);
+
+            } else {
+
+                res.render('single-applicant', {applicant : doc})
+            }
+        })
     }
+};
 
-    // Since the body is in the exact same format as the schema, we can just pass the body in
-    var thisApplicant = new Applicant(applier);
-
-    thisApplicant.save(function(err, doc) {
-
-        if(err) {
-
-            console.log('Son Of A!')
-
-        } else {
-
-            // res.send('sucess')
-        }
-    })
-
-    res.redirect('/applicants')
-}
-}
+module.exports = indexController;

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+    h1 HERE'S THAT ONE GUY
+
+    ul.person-view
+
+        for person in applicant
+            li Name: #{person.name}
+            li Bio: #{person.bio}
+            li Skills: #{person.skills}
+            li Years of experience: #{person.years}
+            li Personal Statement: #{person.why}
+
+    a(href='/') HOME

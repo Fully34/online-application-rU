@@ -1,32 +1,36 @@
+
+//============================== requirements ==============================//
+        
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var Applicant = require('./models/database.js')
+var Applicant = require('./models/database.js');
+var indexController = require('./controllers/index.js')
 
+//============================== Config ==============================//
+        
 var app = express();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 
+//============================== routing ==============================//
+        
 app.get('/', indexController.index);
 
 // displays a list of applicants
 app.get('/applicants', indexController.renderApplicants);
 
 // creates an applicant
-app.post('/submit-applicant', );
+app.post('/submit-applicant', indexController.submitApplicant);
 
 // delete the user from the list
-app.post('/delete-applicant/:id', function(req, res){
+app.post('/delete-applicant/:id', indexController.rmApplicant)
 
-    var id = req.params.id
+//View the applicant
 
-    Applicant.remove({_id : id}, function(err) {
-
-        res.redirect('/applicants')
-    })
-})
+app.get('/applicant/:id', indexController.viewThisApplicant)
 
 //============================== server/db ==============================//
         
